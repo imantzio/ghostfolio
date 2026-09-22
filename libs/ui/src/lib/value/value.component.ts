@@ -63,6 +63,7 @@ export class GfValueComponent implements AfterViewInit, OnChanges, OnDestroy {
   public readonly copiedTitle = $localize`The value has been copied to the clipboard`;
   public readonly copyToClipboardTitle = $localize`Copy to clipboard`;
   public readonly isLoading = input<boolean>(false);
+  public readonly minimumPrecision = input<number>();
   public readonly precision = input<number>();
 
   public constructor(
@@ -80,10 +81,15 @@ export class GfValueComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   private readonly formatOptions = computed<Intl.NumberFormatOptions>(() => {
     const digits = this.hasPrecision ? this.precision() : 2;
+    const minimumPrecision = this.minimumPrecision();
+    const minimumDigits =
+      minimumPrecision !== undefined && minimumPrecision >= 0
+        ? Math.min(minimumPrecision, digits)
+        : digits;
 
     return {
       maximumFractionDigits: digits,
-      minimumFractionDigits: digits
+      minimumFractionDigits: minimumDigits
     };
   });
 
