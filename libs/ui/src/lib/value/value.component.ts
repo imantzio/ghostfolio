@@ -80,7 +80,8 @@ export class GfValueComponent implements AfterViewInit, OnChanges, OnDestroy {
   private copyToClipboardTimeout: ReturnType<typeof setTimeout>;
 
   private readonly formatOptions = computed<Intl.NumberFormatOptions>(() => {
-    const digits = this.hasPrecision ? this.precision() : 2;
+    const precision = this.precision();
+    const digits = precision !== undefined && precision >= 0 ? precision : 2;
     const minimumPrecision = this.minimumPrecision();
     const minimumDigits =
       minimumPrecision !== undefined && minimumPrecision >= 0
