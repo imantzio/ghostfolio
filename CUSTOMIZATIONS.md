@@ -86,16 +86,22 @@ adjustment, then push `custom`.
 
 ## Publishing a custom Docker image
 
-The workflow `.github/workflows/publish-custom-image.yml` is manual. A normal
-push does not publish an image.
+The workflow `.github/workflows/publish-custom-image.yml` runs only when a Git
+tag ending in `-custom.<number>` is pushed. A normal branch push does not publish
+an image.
 
-In GitHub:
+After committing and pushing `custom`, create a unique version tag on the exact
+commit to publish:
 
-1. open **Actions**;
-2. choose **Publish custom Docker image**;
-3. choose the `custom` branch;
-4. select **Run workflow**;
-5. enter a unique tag such as `3.72.0-custom.1`.
+```bash
+git switch custom
+git pull --ff-only
+git tag 3.72.0-custom.1
+git push origin 3.72.0-custom.1
+```
+
+The Git tag and Docker image tag are intentionally identical. The tag makes it
+clear which source commit produced the image.
 
 The resulting image is:
 
@@ -103,8 +109,8 @@ The resulting image is:
 ghcr.io/imantzio/ghostfolio:3.72.0-custom.1
 ```
 
-Never reuse a published version tag for different code. Increment the custom
-revision for another build from the same Ghostfolio version:
+Never move or reuse a published version tag for different code. Increment the
+custom revision for another build from the same Ghostfolio version:
 
 ```text
 3.72.0-custom.1
