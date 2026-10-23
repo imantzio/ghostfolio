@@ -109,6 +109,19 @@ The resulting image is:
 ghcr.io/imantzio/ghostfolio:3.72.0-custom.1
 ```
 
+Custom releases are published as a multi-platform image containing both
+`linux/amd64` for laptop/server development and `linux/arm64` for Raspberry Pi
+5. The workflow installs QEMU before Buildx so both variants are built from the
+same tagged source commit. Verify the published index with:
+
+```bash
+docker buildx imagetools inspect ghcr.io/imantzio/ghostfolio:<versioned-tag>
+```
+
+Shell scripts are forced to LF line endings, and the Dockerfile also normalizes
+the runtime entrypoint. This keeps local Windows build contexts compatible with
+Linux containers without changing application behavior.
+
 Never move or reuse a published version tag for different code. Increment the
 custom revision for another build from the same Ghostfolio version:
 
