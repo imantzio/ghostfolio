@@ -6,14 +6,14 @@ tools, and operational documentation.
 
 ## Where everything lives
 
-| Item | Location |
-| --- | --- |
-| Clean official Ghostfolio source | `imantzio/ghostfolio`, branch `main` |
-| Personal application code | `imantzio/ghostfolio`, branch `custom` |
-| Compiled custom application | `ghcr.io/imantzio/ghostfolio:<versioned-tag>` |
-| Docker Compose and server scripts | `imantzio/my-server`, branch `custom` |
-| Portfolio and application data | PostgreSQL, outside Git |
-| Passwords and application secrets | Each server's `.env`, outside Git |
+| Item                              | Location                                      |
+| --------------------------------- | --------------------------------------------- |
+| Clean official Ghostfolio source  | `imantzio/ghostfolio`, branch `main`          |
+| Personal application code         | `imantzio/ghostfolio`, branch `custom`        |
+| Compiled custom application       | `ghcr.io/imantzio/ghostfolio:<versioned-tag>` |
+| Docker Compose and server scripts | `imantzio/my-server`, branch `custom`         |
+| Portfolio and application data    | PostgreSQL, outside Git                       |
+| Passwords and application secrets | Each server's `.env`, outside Git             |
 
 ## Branch rules
 
@@ -110,8 +110,7 @@ ghcr.io/imantzio/ghostfolio:3.72.0-custom.1
 ```
 
 Custom releases are published as a multi-platform image containing both
-`linux/amd64` for laptop/server development and `linux/arm64` for Raspberry Pi
-5. The workflow installs QEMU before Buildx so both variants are built from the
+`linux/amd64` for laptop/server development and `linux/arm64` for Raspberry Pi 5. The workflow installs QEMU before Buildx so both variants are built from the
 same tagged source commit. Verify the published index with:
 
 ```bash
